@@ -1,3 +1,5 @@
+package io.lamart.deps.utils
+
 import io.lamart.deps.Deps
 import io.lamart.deps.asLazy
 import io.lamart.deps.asProperty

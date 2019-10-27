@@ -1,14 +1,15 @@
 package io.lamart.deps
 
-import DelegatingExample
-import Person
+import io.lamart.deps.utils.DelegatingExample
+import io.lamart.deps.utils.IncrementalIntFactory
+import io.lamart.deps.utils.Person
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class DepsTests {
 
     @Test
-    fun singletonTest() {
+    fun singletonOrFactory() {
         val factory = Deps {
             factory(IncrementalIntFactory())
         }
@@ -24,7 +25,7 @@ class DepsTests {
     }
 
     @Test
-    fun graphTest() {
+    fun dependencyGraph() {
         val parent = Deps {
             singleton { -> 0 }
         }

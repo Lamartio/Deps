@@ -1,4 +1,4 @@
-package io.lamart.deps
+package io.lamart.deps.utils
 
 class IncrementalIntFactory : () -> Int {
 
