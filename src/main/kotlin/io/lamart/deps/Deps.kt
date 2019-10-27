@@ -2,18 +2,24 @@ package io.lamart.deps
 
 import kotlin.reflect.KClass
 
-interface Deps {
+open class Deps(internal open val map: DepsMap = mapOf()) {
 
-    fun <T : Any> getOrNull(key: KClass<T>): T?
+    fun <T : Any> getOrNull(key: KClass<T>): T? = map.getOrNull(key)
 
-    companion object
+    companion object {
+        operator fun invoke(block: Builder.() -> Unit): Deps =
+            Builder().apply(block).build()
+    }
 
-    interface Builder : Deps {
+    class Builder(override val map: MutableDepsMap = mutableMapOf()) : Deps(map) {
 
-        operator fun <T : Any> set(key: KClass<T>, factory: () -> T)
+        operator fun <T : Any> set(key: KClass<T>, factory: () -> T) = map.set(key, factory)
 
-        companion object
+        internal fun build(): Deps = map.toMap().let(::Deps)
 
+        companion object {
+            operator fun invoke(block: Builder.() -> Unit): Builder.() -> Unit = block
+        }
     }
 
 }
