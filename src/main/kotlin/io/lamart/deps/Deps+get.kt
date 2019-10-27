@@ -16,11 +16,11 @@ inline operator fun <reified T : Any> Deps.component4(): T = get()
 inline operator fun <reified T : Any> Deps.component5(): T = get()
 inline operator fun <reified T : Any> Deps.component6(): T = get()
 
-inline fun <reified T : Any> Deps.lazy() = lazy(initializer = { get<T>() })
-inline fun <reified T : Any> Deps.lazy(mode: LazyThreadSafetyMode) = lazy(mode) { get<T>() }
-inline fun <reified T : Any> Deps.lazy(lock: Any?) = lazy(lock) { get<T>() }
+inline fun <reified T : Any> Deps.asLazy() = lazy(initializer = { get<T>() })
+inline fun <reified T : Any> Deps.asLazy(mode: LazyThreadSafetyMode) = lazy(mode) { get<T>() }
+inline fun <reified T : Any> Deps.asLazy(lock: Any?) = lazy(lock) { get<T>() }
 
-inline fun <reified T : Any> Deps.property() =
+inline fun <reified T : Any> Deps.asProperty() =
     object : ReadOnlyProperty<Any, T> {
         override fun getValue(thisRef: Any, property: KProperty<*>): T = get()
     }
