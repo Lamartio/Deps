@@ -5,6 +5,8 @@ import io.lamart.deps.utils.IncrementalIntFactory
 import io.lamart.deps.utils.Person
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class DepsTests {
 
@@ -27,14 +29,19 @@ class DepsTests {
     @Test
     fun dependencyGraph() {
         val parent = Deps {
-            singleton { -> 0 }
+            singleton(0)
         }
-        val child = parent + {
-            singleton { -> 1 }
+        val child = parent + Deps {
+            singleton(1)
         }
+        val ascendant = child + listOf(
+            Deps { singleton(2) },
+            Deps { singleton(3) }
+        )
 
         assertEquals(parent.get(), 0)
         assertEquals(child.get(), 1)
+        assertEquals(ascendant.get(), 3)
     }
 
     @Test
@@ -62,6 +69,42 @@ class DepsTests {
 
         assertEquals(wrapper.name, "Danny")
         assertEquals(wrapper.age, 28)
+    }
+
+    @Test
+    fun polymorphism() {
+        val deps1 = Deps {
+            singleton("HelloWorld")
+        }
+        val deps2 = Deps {
+            singleton("HelloWorld" as CharSequence)
+        }
+        val deps3 = Deps {
+            singleton("HelloWorld")
+            singleton("HelloWorld" as CharSequence)
+        }
+
+        assertNull(deps1.getOrNull(CharSequence::class))
+
+        assertNull(deps2.getOrNull(String::class))
+        assertNotNull(deps2.getOrNull(CharSequence::class))
+
+        assertNotNull(deps3.getOrNull(String::class))
+        assertNotNull(deps3.getOrNull(CharSequence::class))
+    }
+
+
+    @Test
+    fun builders() {
+        val deps = Deps {
+            singleton("Danny")
+            singleton(28)
+            singleton { name: String, age: Int -> Person(name, age) }
+            singleton { -> Person(get(), get()) }
+            singleton(::Person)
+        }
+
+        assertEquals(deps.get(), Person("Danny", 28))
     }
 
 }

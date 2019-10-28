@@ -1,11 +1,15 @@
 package io.lamart.deps
 
 import kotlin.reflect.KClass
+import kotlin.reflect.KProperty
 
+@Throws
 infix operator fun <T : Any> Deps.get(key: KClass<T>): T =
     getOrNull(key) ?: throw NullPointerException("No value for key: $key")
 
 inline fun <reified T : Any> Deps.get() = get(T::class)
+
+inline operator fun <R, reified T : Any> Deps.getValue(thisRef: R, property: KProperty<*>): T = get()
 
 inline operator fun <reified T : Any> Deps.component1(): T = get()
 inline operator fun <reified T : Any> Deps.component2(): T = get()
