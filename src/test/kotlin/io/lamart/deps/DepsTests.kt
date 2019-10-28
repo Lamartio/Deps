@@ -7,6 +7,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.test.assertSame
 
 class DepsTests {
 
@@ -47,16 +48,19 @@ class DepsTests {
     @Test
     fun gettingValues() {
         val deps = Deps {
+            singleton(Unit)
             singleton(28)
             singleton("Danny")
         }
         val name: String = deps.get() // getting
         val (age: Int) = deps // destructuring
         val person = deps.get(::Person) // injecting
+        val unit: Unit by deps // delegating
 
         assertEquals(name, "Danny")
         assertEquals(age, 28)
         assertEquals(person, Person("Danny", 28))
+        assertSame(unit, Unit)
     }
 
     @Test
