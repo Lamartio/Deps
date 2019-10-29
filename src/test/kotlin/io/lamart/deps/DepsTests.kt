@@ -1,6 +1,5 @@
 package io.lamart.deps
 
-import io.lamart.deps.utils.DelegatingExample
 import io.lamart.deps.utils.IncrementalIntFactory
 import io.lamart.deps.utils.Person
 import org.junit.Test
@@ -61,18 +60,6 @@ class DepsTests {
         assertEquals(age, 28)
         assertEquals(person, Person("Danny", 28))
         assertSame(unit, Unit)
-    }
-
-    @Test
-    fun delegatingValues() {
-        val deps = Deps {
-            singleton(28)
-            singleton("Danny")
-        }
-        val wrapper = DelegatingExample(deps)
-
-        assertEquals(wrapper.name, "Danny")
-        assertEquals(wrapper.age, 28)
     }
 
     @Test
