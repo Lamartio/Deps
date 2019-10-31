@@ -2,7 +2,7 @@ package io.lamart.deps
 
 import kotlin.reflect.KClass
 
-class DepsBuilder private constructor(override var map: MutableDepsMap = mutableMapOf()) : Deps(map) {
+class DepsBuilder private constructor(var map: MutableDepsMap = mutableMapOf()) : Deps by DepsInstance(map) {
 
     operator fun <T : Any> set(key: KClass<T>, factory: () -> T) = map.set(key, factory)
 

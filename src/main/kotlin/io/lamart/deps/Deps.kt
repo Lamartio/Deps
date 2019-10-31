@@ -2,9 +2,9 @@ package io.lamart.deps
 
 import kotlin.reflect.KClass
 
-open class Deps internal constructor(internal open val map: DepsMap = mapOf()) {
+interface Deps {
 
-    fun <T : Any> getOrNull(key: KClass<T>): T? = map.getOrNull(key)
+    fun <T : Any> getOrNull(key: KClass<T>): T?
 
     companion object {
 
