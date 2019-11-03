@@ -1,6 +1,6 @@
 package io.lamart.deps
 
-inline fun <R, reified T : Any> Deps.inject() = readOnlyPropertyOf<R, T>(::get)
+inline fun <R, reified T : Any> Deps.inject() = readOnlyPropertyOf<R, T> { get() }
 
 inline fun <R, reified T : Any, reified P1 : Any> Deps.inject(
     crossinline factory: (P1) -> T
