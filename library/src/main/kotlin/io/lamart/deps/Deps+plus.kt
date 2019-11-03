@@ -7,6 +7,8 @@ operator fun Deps.plus(child: Deps): Deps = let { parent ->
     }
 }
 
+operator fun Deps.plus(children: Array<Deps>): Deps = children.asSequence().let(::plus)
+
 operator fun Deps.plus(children: Iterable<Deps>): Deps = children.asSequence().let(::plus)
 
 operator fun Deps.plus(children: Sequence<Deps>): Deps =
