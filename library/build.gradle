@@ -1,0 +1,40 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'com.novoda.bintray-release'
+
+sourceCompatibility = 1.8
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+    testImplementation "junit:junit:4.12"
+}
+
+def properties = project.rootProject.file('local.properties').withDataInputStream { stream ->
+    def props = new Properties()
+    props.load(stream)
+    props
+}
+
+publish {
+    userOrg = 'lamartio'
+    groupId = 'io.lamart.deps'
+    artifactId = 'deps'
+    publishVersion = rootProject.version
+    uploadName 'Deps'
+    desc = 'Simple and effective dependency injection'
+    website = 'https://github.com/Lamartio/Deps'
+
+    bintrayUser properties['BINTRAY_USER']
+    bintrayKey properties['BINTRAY_KEY']
+
+    dryRun = true
+    override true
+}

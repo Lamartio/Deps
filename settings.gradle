@@ -1,2 +1,3 @@
-rootProject.name = 'Deps'
+include ':library'
 
+rootProject.name = 'Deps'
