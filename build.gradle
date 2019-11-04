@@ -24,5 +24,4 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-group = 'io.lamart'
 version = '1.0'

@@ -1,3 +1,4 @@
+apply plugin: 'java-library'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'com.novoda.bintray-release'
 
@@ -35,6 +36,6 @@ publish {
     bintrayUser properties['BINTRAY_USER']
     bintrayKey properties['BINTRAY_KEY']
 
-    dryRun = true
+    dryRun = false
     override true
 }
