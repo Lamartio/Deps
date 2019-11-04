@@ -1,7 +1,12 @@
+[ ![Download](https://api.bintray.com/packages/lamartio/maven/Deps/images/download.svg) ](https://bintray.com/lamartio/maven/Deps/_latestVersion)
 # Deps
 There are some awesome Dependency Injection libraries out there, but I found them having so much features we don't need. Instead of creating a lot of features, I decided to make the features we need as good as possible. That is; storing and injecting dependencies.
 
 The idea behind Dependency Inversion comes down to an object that is capable of storing other objects and applying those into a constructor, method or function. In this library this object is called `Deps`.
+
+```groovy
+implementation 'io.lamart.deps:deps:1.0.0'
+```
 
 ## Injecting dependencies
 The library's primary aim is to make injection as easy as possible and base it purely on Kotlin's syntax.
